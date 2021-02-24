@@ -32,7 +32,13 @@ class Client {
         let value = strValue;
         try {
           // Try to parse as JSON, if it fails, we throw
-          value = JSON.parse(strValue);
+          if(!value.startsWith('invalid'){
+            value = JSON.parse(strValue);
+          } else {
+            throw new Error(
+              `Your url has expired: ${strValue} please update the database url`
+              );
+          }
         } catch (_err) {
           throw new SyntaxError(
             `Failed to parse value of ${key}, try passing a raw option to get the raw value`
